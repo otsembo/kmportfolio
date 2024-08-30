@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.otsembo.portfolio
 
 import io.ktor.server.application.*
