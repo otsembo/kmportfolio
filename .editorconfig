@@ -1,0 +1,33 @@
+root = true
+
+[*.kt]
+indent_size = 4
+continuation_indent_size = 4
+max_line_length = 100
+
+# Ktlint rules
+ij_kotlin_no_unused_imports = true
+ij_kotlin_no_trailing_spaces = true
+ij_kotlin_no_blank_lines_at_end_of_file = true
+ij_kotlin_omit_empty_parens = true
+ij_kotlin_max_line_length = 100
+
+# Kotlin specific rules
+ktlint_author = "Your Name <your.email@example.com>"
+ktlint_indent_size = 4
+ktlint_continuation_indent_size = 4
+ktlint_max_line_length = 100
+ktlint_no_trailing_spaces = true
+ktlint_no_unused_imports = true
+ktlint_no_blank_lines_at_end_of_file = true
+ktlint_omit_empty_parens = true
+ktlint_no_empty_class_body = true
+ktlint_no_semi_colon = true
+ktlint_no_extra_blank_lines = true
+ktlint_no_single_line_lambda_parentheses = true
+ktlint_no_wildcard_imports = true
+ktlint_no_blank_lines_around_class = true
+
+# Custom rules for Compose
+ktlint_composable_function_naming = PascalCase
+ktlint_modifier_order = [order]
