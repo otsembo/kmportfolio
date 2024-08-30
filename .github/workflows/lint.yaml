@@ -10,7 +10,7 @@ on:
 
 jobs:
   ktlint:
-    name: Run Ktlint
+    name: ktlint
     runs-on: ubuntu-latest
 
     steps:
