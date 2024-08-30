@@ -32,20 +32,6 @@ jobs:
       - name: Run Ktlint Check
         run: ktlint --version
 
-      - name: Run Ktlint Autocorrect
+      - name: Run Ktlint
         run: |
           ktlint -F "*/**/src/**/*.kt"
-
-      - name: Check for changes after autocorrect
-        run: |
-          git diff --exit-code
-          git diff --exit-code --cached
-
-      - name: Commit changes (if any)
-        if: success() && github.event_name == 'push'
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git add .
-          git commit -m "Apply ktlint fixes" || echo "No changes to commit"
-          git push
