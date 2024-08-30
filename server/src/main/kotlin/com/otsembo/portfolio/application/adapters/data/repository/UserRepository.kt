@@ -27,11 +27,15 @@ class UserRepository : IUserRepository {
             // user with that email or username already exists
             if (users != null) return@dbQuery null
 
+            val currTime = currentTime()
+
             val statement =
                 user.insert {
                     it[username] = userDTO.username
                     it[email] = userDTO.email!!
                     it[password_hash] = userDTO.password
+                    it[created_at] = currTime
+                    it[updated_at] = currTime
                 }
 
             User(

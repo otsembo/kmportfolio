@@ -3,12 +3,21 @@
 package com.otsembo.portfolio.application
 
 import com.otsembo.portfolio.SERVER_PORT
+import com.otsembo.portfolio.application.adapters.web.routing.RouteUtils.routesModule
+import com.otsembo.portfolio.di.diModule
+import com.otsembo.portfolio.domain.mappers.AppState
+import com.otsembo.portfolio.domain.mappers.AuthException
 import com.otsembo.portfolio.infrastructure.config.DBConfigs
+import io.ktor.http.HttpStatusCode
+import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.serialization.json.Json
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
@@ -17,4 +26,38 @@ fun main() {
 
 fun Application.module() {
     DBConfigs.initDB()
+    diModule()
+    serializationModule()
+    statusModule()
+    routesModule()
+}
+
+fun Application.serializationModule() {
+    install(ContentNegotiation) {
+        json(
+            Json {
+                prettyPrint = true
+                isLenient = true
+            },
+        )
+    }
+}
+
+fun Application.statusModule() {
+    install(StatusPages) {
+        exception<Throwable> { call, cause ->
+            when (cause) {
+                is AuthException ->
+                    call.respond(
+                        status = HttpStatusCode.Unauthorized,
+                        AppState.Error(message = cause.message ?: "An error occurred"),
+                    )
+                else ->
+                    call.respond(
+                        status = HttpStatusCode.InternalServerError,
+                        AppState.Error(message = "An error occurred"),
+                    )
+            }
+        }
+    }
 }

@@ -29,6 +29,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlin.serialization)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
         }
     }
 }

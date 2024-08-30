@@ -1,13 +1,17 @@
 package com.otsembo.portfolio.domain.mappers
 
-sealed class AppState<T> {
+import kotlinx.serialization.Serializable
+
+sealed class AppState {
+    @Serializable
     data class Success<T>(
         val data: T,
-    ) : AppState<T>()
+    ) : AppState()
 
-    data class Error<T>(
+    @Serializable
+    data class Error(
         val message: String,
-    ) : AppState<T>()
+    ) : AppState()
 
-    data object Loading : AppState<Nothing>()
+    data object Loading : AppState()
 }

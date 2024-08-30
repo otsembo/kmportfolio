@@ -3,7 +3,7 @@ package com.otsembo.portfolio.infrastructure.repository
 import com.otsembo.portfolio.domain.models.User
 import com.otsembo.portfolio.domain.models.UserDTO
 
-interface IUserRepository {
+interface IUserRepository : BaseRepository {
     suspend fun create(userDTO: UserDTO): User?
 
     suspend fun find(id: Long): User?
