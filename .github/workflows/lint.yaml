@@ -34,7 +34,7 @@ jobs:
 
       - name: Run Ktlint Autocorrect
         run: |
-          ktlint -F "*/**/src/**/*.kt" --reporter=plain
+          ktlint -F "*/**/src/**/*.kt"
 
       - name: Check for changes after autocorrect
         run: |
