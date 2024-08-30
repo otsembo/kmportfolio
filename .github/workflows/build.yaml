@@ -1,0 +1,60 @@
+name: Lint and Autocorrect
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ktlint:
+    name: Run Ktlint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Kotlin
+        uses: jvm-bits/setup-kotlin@v2
+        with:
+          kotlin-version: '2.0.0'
+
+      - name: Install Ktlint
+        run: |
+          curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.50.0/ktlint
+          chmod a+x ktlint
+          sudo mv ktlint /usr/local/bin/ktlint
+
+      - name: Run Ktlint Check
+        run: ./ktlint --version
+
+      - name: Run Ktlint Linting
+        run: |
+          ./ktlint "*/**/src/**/*.kt" --reporter=plain
+          ./ktlint "*/**/src/**/*.kt" --format
+
+      - name: Run Ktlint Autocorrect
+        run: ./ktlint -F "*/**/src/**/*.kt"
+
+      - name: Check for changes after autocorrect
+        run: |
+          git diff --exit-code
+          git diff --exit-code --cached
+
+      - name: Commit changes (if any)
+        if: success() && github.event_name == 'push'
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add .
+          git commit -m "Apply ktlint fixes" || echo "No changes to commit"
+          git push
