@@ -32,13 +32,9 @@ jobs:
       - name: Run Ktlint Check
         run: ktlint --version
 
-      - name: Run Ktlint Linting
-        run: |
-          ktlint "*/**/src/**/*.kt" --reporter=plain
-          ktlint "*/**/src/**/*.kt" --format
-
       - name: Run Ktlint Autocorrect
-        run: ktlint -F "*/**/src/**/*.kt"
+        run: |
+          ktlint -F "*/**/src/**/*.kt" --reporter=plain
 
       - name: Check for changes after autocorrect
         run: |
