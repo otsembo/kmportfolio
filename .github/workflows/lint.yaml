@@ -1,0 +1,37 @@
+name: Lint and Autocorrect
+
+on:
+  push:
+    branches:
+      - trunk
+  pull_request:
+    branches:
+      - trunk
+
+jobs:
+  ktlint:
+    name: ktlint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Ktlint
+        run: |
+          curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.50.0/ktlint
+          chmod a+x ktlint
+          sudo mv ktlint /usr/local/bin/ktlint
+
+      - name: Run Ktlint Check
+        run: ktlint --version
+
+      - name: Run Ktlint
+        run: |
+          ktlint -F "*/**/src/**/*.kt"

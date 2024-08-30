@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.otsembo.portfolio
 
 import androidx.compose.animation.AnimatedVisibility
@@ -12,10 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
 import otsembo_portfolio.composeapp.generated.resources.Res
 import otsembo_portfolio.composeapp.generated.resources.compose_multiplatform
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 @Preview
 fun App() {
@@ -27,7 +29,10 @@ fun App() {
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
                 }
