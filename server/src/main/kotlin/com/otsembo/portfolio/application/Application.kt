@@ -1,7 +1,9 @@
 @file:Suppress("ktlint:standard:no-wildcard-imports")
 
-package com.otsembo.portfolio
+package com.otsembo.portfolio.application
 
+import com.otsembo.portfolio.SERVER_PORT
+import com.otsembo.portfolio.infrastructure.config.DBConfigs
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -14,9 +16,5 @@ fun main() {
 }
 
 fun Application.module() {
-    routing {
-        get("/") {
-            call.respondText("Ktor: ${Greeting().greet()}")
-        }
-    }
+    DBConfigs.initDB()
 }
