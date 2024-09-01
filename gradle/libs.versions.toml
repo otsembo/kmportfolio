@@ -6,6 +6,13 @@ kotlin = "2.0.0"
 kotlinx-coroutines = "1.8.1"
 ktor = "2.3.12"
 logback = "1.5.6"
+exposed = "0.53.0"
+h2 = "2.2.224"
+hikariCP = "5.1.0"
+sql-logger = "1.7.30"
+ktx-serialization = "1.7.1"
+bcrypt = "0.10.2"
+koin = "4.0.0-RC1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -17,7 +24,38 @@ kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-co
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
+ktor-server-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" }
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
+ktor-server-cn = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-cn-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
+
+
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed" }
+exposed-datetime-java = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed" }
+exposed-crypt = { module = "org.jetbrains.exposed:exposed-crypt", version.ref = "exposed" }
+exposed-money = { module = "org.jetbrains.exposed:exposed-money", version.ref = "exposed" }
+h2-db = { module = "com.h2database:h2", version.ref="h2"}
+hikari-cp = { module = "com.zaxxer:HikariCP", version.ref="hikariCP" }
+sql-logger = { module = "org.slf4j:slf4j-nop", version.ref="sql-logger" }
+
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref="koin" }
+koin-core = { module = "io.insert-koin:koin-core"}
+koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
+koin-ktor-logger = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin" }
+
+kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "ktx-serialization" }
+bcrypt-lib = { module = "at.favre.lib:bcrypt", version.ref = "bcrypt" }
+
+[bundles]
+exposed-db = [ "exposed-core", "exposed-jdbc", "h2-db", "hikari-cp", "exposed-datetime", "exposed-crypt", "exposed-money", "sql-logger", "bcrypt-lib" ]
+ktor = [ "ktor-server-core", "ktor-server-netty", "ktor-server-auth", "ktor-server-jwt", "koin-ktor", "koin-ktor-logger", "ktor-server-cn", "ktor-server-cn-json", "ktor-server-status-pages" ]
+ktor-test = [ "ktor-server-tests" ]
+
+
 
 [plugins]
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
@@ -25,3 +63,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
