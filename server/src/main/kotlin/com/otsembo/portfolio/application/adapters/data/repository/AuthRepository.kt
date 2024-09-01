@@ -33,7 +33,8 @@ class AuthRepository(
     override suspend fun createAccount(info: UserDTO): User? {
         requireAuth(info.username.length >= 4) { "Username cannot be less than 4 characters" }
         requireAuth(passwordService.isPasswordValid(info.password)) {
-            "Password is not valid. It must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one digit."
+            "Password is not valid. It must be at least 8 characters long and contain" +
+                " at least one uppercase letter, one lowercase letter and one digit."
         }
         val hashedPassword = passwordService.hashPassword(info.password)
         val user = userRepository.create(info.copy(password = hashedPassword))
