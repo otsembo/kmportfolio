@@ -24,15 +24,14 @@ fun Application.appModule() =
         single<JWTService> {
             val issuer =
                 environment.config.propertyOrNull("jwt.issuer")?.getString()
-                    ?: "http://0.0.0.0:8080/"
+
             val audience =
                 environment.config.propertyOrNull("jwt.audience")?.getString()
-                    ?: "http://0.0.0.0:8080/hello"
+
             val secret =
                 environment.config.propertyOrNull("jwt.secret")?.getString()
-                    ?: "secret"
 
-            JWTService(issuer, audience, secret)
+            JWTService(issuer!!, audience!!, secret!!)
         }
 
         single<PasswordService> {

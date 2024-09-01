@@ -6,8 +6,9 @@ plugins {
 
 group = "com.otsembo.portfolio"
 version = "1.0.0"
+
 application {
-    mainClass.set("com.otsembo.portfolio.ApplicationKt")
+    mainClass.set("io.ktor.server.netty.EngineMain")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["io.ktor.development"] ?: "false"}")
 }
 

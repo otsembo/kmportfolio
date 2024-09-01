@@ -2,7 +2,6 @@
 
 package com.otsembo.portfolio.application
 
-import com.otsembo.portfolio.SERVER_PORT
 import com.otsembo.portfolio.application.adapters.web.routing.RouteUtils.routesModule
 import com.otsembo.portfolio.di.diModule
 import com.otsembo.portfolio.domain.mappers.AppState
@@ -19,10 +18,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.json.Json
 
-fun main() {
-    embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
-        .start(wait = true)
-}
+fun main(args: Array<String>) = EngineMain.main(args)
 
 fun Application.module() {
     DBConfigs.initDB()
@@ -38,6 +34,7 @@ fun Application.serializationModule() {
             Json {
                 prettyPrint = true
                 isLenient = true
+                ignoreUnknownKeys = true
             },
         )
     }
@@ -55,7 +52,7 @@ fun Application.statusModule() {
                 else ->
                     call.respond(
                         status = HttpStatusCode.InternalServerError,
-                        AppState.Error(message = "An error occurred"),
+                        AppState.Error(message = cause.message ?: "An error occurred"),
                     )
             }
         }

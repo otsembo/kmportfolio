@@ -18,7 +18,7 @@ class AuthRepository(
         requireAuth(info.password.isNotBlank()) { "Password cannot be blank" }
         val passHash = userRepository.findPasswordHash(info.username)
         requireAuth(passHash != null) { "User does not exist" }
-        requireAuth(passwordService.verifyPassword(info.password, info.password)) {
+        requireAuth(passwordService.verifyPassword(info.password, passHash!!)) {
             "Password is incorrect"
         }
         val token = jwtService.createToken(info.username)
