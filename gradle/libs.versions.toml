@@ -13,6 +13,7 @@ sql-logger = "1.7.30"
 ktx-serialization = "1.7.1"
 bcrypt = "0.10.2"
 koin = "4.0.0-RC1"
+flyway = "9.20.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -41,6 +42,7 @@ exposed-money = { module = "org.jetbrains.exposed:exposed-money", version.ref = 
 h2-db = { module = "com.h2database:h2", version.ref="h2"}
 hikari-cp = { module = "com.zaxxer:HikariCP", version.ref="hikariCP" }
 sql-logger = { module = "org.slf4j:slf4j-nop", version.ref="sql-logger" }
+flyway-migrations = { module = "org.flywaydb:flyway-core", version.ref="flyway" }
 
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref="koin" }
 koin-core = { module = "io.insert-koin:koin-core"}
@@ -51,7 +53,7 @@ kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-j
 bcrypt-lib = { module = "at.favre.lib:bcrypt", version.ref = "bcrypt" }
 
 [bundles]
-exposed-db = [ "exposed-core", "exposed-jdbc", "h2-db", "hikari-cp", "exposed-datetime", "exposed-crypt", "exposed-money", "sql-logger", "bcrypt-lib" ]
+exposed-db = [ "exposed-core", "exposed-jdbc", "h2-db", "hikari-cp", "exposed-datetime", "exposed-crypt", "exposed-money", "sql-logger", "bcrypt-lib", "flyway-migrations" ]
 ktor = [ "ktor-server-core", "ktor-server-netty", "ktor-server-auth", "ktor-server-jwt", "koin-ktor", "koin-ktor-logger", "ktor-server-cn", "ktor-server-cn-json", "ktor-server-status-pages" ]
 ktor-test = [ "ktor-server-tests" ]
 

@@ -6,22 +6,29 @@ import com.otsembo.portfolio.application.adapters.web.routing.RouteUtils.routesM
 import com.otsembo.portfolio.di.diModule
 import com.otsembo.portfolio.domain.mappers.AppState
 import com.otsembo.portfolio.domain.mappers.AuthException
-import com.otsembo.portfolio.infrastructure.config.DBConfigs
+import com.otsembo.portfolio.infrastructure.config.DBConfigs.dbModule
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
-import io.ktor.server.application.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
+import io.ktor.server.netty.EngineMain
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.statuspages.StatusPages
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.response.respond
 import kotlinx.serialization.json.Json
 
 fun main(args: Array<String>) = EngineMain.main(args)
 
 fun Application.module() {
-    DBConfigs.initDB()
+    val dbEngine =
+        environment
+            .config
+            .propertyOrNull("db.engine")
+            ?.getString()
+
+    dbModule(
+        engine = dbEngine?.lowercase() ?: "h2",
+    )
     diModule()
     serializationModule()
     statusModule()
