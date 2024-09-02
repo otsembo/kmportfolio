@@ -27,7 +27,7 @@ fun Application.module() {
             ?.getString()
 
     dbModule(
-        engine = dbEngine?.lowercase() ?: "h2",
+        engine = dbEngine?.lowercase() ?: "postgresql",
     )
     diModule()
     serializationModule()

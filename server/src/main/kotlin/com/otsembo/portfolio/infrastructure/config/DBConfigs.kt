@@ -82,6 +82,7 @@ object DBConfigs {
         Flyway
             .configure()
             .dataSource(dataSource)
+            .baselineOnMigrate(true)
             .load()
             .migrate()
     }
