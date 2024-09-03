@@ -11,10 +11,16 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.otsembo.portfolio.presentation.components.AppButton
 import com.otsembo.portfolio.presentation.components.AppButtonType
+import com.otsembo.portfolio.presentation.components.AppTextField
+import com.otsembo.portfolio.presentation.components.AppTextFieldType
 import com.otsembo.portfolio.presentation.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -51,6 +57,34 @@ fun App() {
                         Text("Button")
                     },
                     type = AppButtonType.SECONDARY,
+                )
+
+                var password by remember { mutableStateOf("") }
+
+                AppTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = {
+                        Text("Enter your name")
+                    },
+                )
+
+                AppTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = {
+                        Text("Enter your password")
+                    },
+                    fieldType = AppTextFieldType.Password,
+                )
+
+                AppTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = {
+                        Text("Enter your name")
+                    },
+                    fieldType = AppTextFieldType.TextArea,
                 )
             }
         }
