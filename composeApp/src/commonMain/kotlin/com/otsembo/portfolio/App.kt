@@ -5,6 +5,7 @@ package com.otsembo.portfolio
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
@@ -19,8 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.otsembo.portfolio.presentation.components.AppButton
 import com.otsembo.portfolio.presentation.components.AppButtonType
+import com.otsembo.portfolio.presentation.components.AppLinearProgressBar
 import com.otsembo.portfolio.presentation.components.AppTextField
 import com.otsembo.portfolio.presentation.components.AppTextFieldType
+import com.otsembo.portfolio.presentation.components.BottomAppBar
+import com.otsembo.portfolio.presentation.components.SectionTitle
+import com.otsembo.portfolio.presentation.components.TopAppBar
 import com.otsembo.portfolio.presentation.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -42,6 +47,8 @@ fun App() {
                         ).padding(top = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
+                TopAppBar()
+
                 AppButton(
                     modifier = Modifier.height(ButtonDefaults.MinHeight),
                     onClick = {},
@@ -85,6 +92,25 @@ fun App() {
                         Text("Enter your name")
                     },
                     fieldType = AppTextFieldType.TextArea,
+                )
+
+                BottomAppBar(
+                    modifier = Modifier.padding(top = 32.dp),
+                )
+
+                AppLinearProgressBar(
+                    progress = { 75 },
+                    barTitle = "Progress",
+                )
+
+                SectionTitle(
+                    modifier = Modifier.fillMaxWidth(0.25f),
+                    title = "Section Title",
+                )
+
+                SectionTitle(
+                    modifier = Modifier.fillMaxWidth(0.25f),
+                    title = "Other Title",
                 )
             }
         }
