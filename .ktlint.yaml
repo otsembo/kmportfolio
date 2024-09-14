@@ -1,0 +1,4 @@
+disabled_rules:
+  - standard:function-naming
+  - standard:no-empty-file
+  - standard:filename

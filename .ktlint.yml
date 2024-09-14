@@ -1,5 +1,0 @@
-standard:
-  disabled_rules:
-    - function-naming
-  no-empty-file: warning # Severity 4 corresponds to "warning"
-  filename: error # Severity 1 corresponds to "error"
