@@ -1,6 +1,7 @@
 root = true
 
 [*.{kt,kts}]
+disabled_rules=function-naming
 indent_size = 4
 continuation_indent_size = 4
 max_line_length = 120
@@ -29,3 +30,10 @@ ktlint_no_extra_blank_lines = true
 ktlint_no_single_line_lambda_parentheses = true
 ktlint_no_wildcard_imports = true
 ktlint_no_blank_lines_around_class = true
+
+# disabled rules
+ktlint_standard_function-naming = disabled
+ktlint_standard_class-naming = disabled
+ktlint_standard_package-name = disabled
+ktlint_standard_no-empty-file = disabled
+ktlint_standard_filename = disabled
