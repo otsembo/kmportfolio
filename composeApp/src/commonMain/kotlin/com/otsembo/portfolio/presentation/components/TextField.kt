@@ -1,7 +1,7 @@
 package com.otsembo.portfolio.presentation.components
 
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -18,6 +18,8 @@ fun AppTextField(
     singleLine: Boolean = true,
     label: @Composable (() -> Unit),
     fieldType: AppTextFieldType = AppTextFieldType.Regular,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
 ) {
     if (fieldType == AppTextFieldType.TextArea) {
         modifier.height(100.dp)
@@ -30,12 +32,12 @@ fun AppTextField(
             modifier.height(
                 when (fieldType) {
                     AppTextFieldType.TextArea -> 150.dp
-                    else -> TextFieldDefaults.MinHeight
+                    else -> TextFieldDefaults.MinHeight + 8.dp
                 },
             ),
         singleLine = singleLine,
         label = label,
-        shape = MaterialTheme.shapes.medium,
+        shape = RoundedCornerShape(50),
         visualTransformation =
             when (fieldType) {
                 AppTextFieldType.Password -> PasswordVisualTransformation()
@@ -46,6 +48,8 @@ fun AppTextField(
                 AppTextFieldType.TextArea -> 5
                 else -> 1
             },
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
     )
 }
 

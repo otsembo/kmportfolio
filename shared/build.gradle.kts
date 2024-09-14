@@ -31,6 +31,12 @@ kotlin {
             implementation(libs.kotlin.serialization)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.cn)
+            implementation(libs.ktor.client.json)
+        }
+        jvmMain.dependencies {
+            implementation(libs.ktor.client.cio)
         }
     }
 }

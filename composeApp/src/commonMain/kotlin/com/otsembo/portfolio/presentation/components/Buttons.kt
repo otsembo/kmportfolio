@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 fun AppButton(
     modifier: Modifier = Modifier,
     type: AppButtonType = AppButtonType.PRIMARY,
+    enabled: Boolean = true,
     onClick: () -> Unit,
     content: @Composable RowScope.() -> Unit,
 ) {
@@ -24,8 +25,8 @@ fun AppButton(
                 ButtonDefaults
                     .outlinedButtonColors()
                     .copy(
-                        containerColor = Color.Transparent,
-                        disabledContainerColor = Color.Transparent,
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                        disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                         contentColor = MaterialTheme.colorScheme.onSurface,
                     )
                     to
@@ -51,6 +52,12 @@ fun AppButton(
             AppButtonType.TERTIARY -> TODO()
         }
 
+    val elevation =
+        when (type) {
+            AppButtonType.PRIMARY -> ButtonDefaults.elevatedButtonElevation()
+            else -> null
+        }
+
     OutlinedButton(
         modifier = modifier,
         onClick = onClick,
@@ -58,6 +65,8 @@ fun AppButton(
         shape = RoundedCornerShape(percent = 50),
         colors = btnColors,
         border = border,
+        elevation = elevation,
+        enabled = enabled,
     )
 }
 
