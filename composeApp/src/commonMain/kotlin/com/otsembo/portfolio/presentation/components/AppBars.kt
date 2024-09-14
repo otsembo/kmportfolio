@@ -61,7 +61,10 @@ fun TopAppBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun BottomAppBar(modifier: Modifier = Modifier) {
+fun BottomAppBar(
+    modifier: Modifier = Modifier,
+    currentYear: Int = 2024,
+) {
     Column(
         modifier = modifier,
     ) {
@@ -92,7 +95,7 @@ fun BottomAppBar(modifier: Modifier = Modifier) {
                 contentAlignment = Alignment.CenterEnd,
             ) {
                 Text(
-                    text = "Copyright @2023",
+                    text = "Copyright @$currentYear",
                     color = Color.Gray,
                 )
             }

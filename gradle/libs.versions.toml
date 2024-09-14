@@ -1,10 +1,11 @@
 [versions]
 androidx-lifecycle = "2.8.0"
-compose-plugin = "1.6.11"
+compose-plugin = "1.7.0-beta02"
 junit = "4.13.2"
 kotlin = "2.0.0"
 kotlinx-coroutines = "1.8.1"
 ktor = "2.3.12"
+ktorclient = "3.0.0-beta-2"
 logback = "1.5.6"
 exposed = "0.53.0"
 h2 = "2.2.224"
@@ -15,6 +16,7 @@ bcrypt = "0.10.2"
 koin = "4.0.0-RC1"
 flyway = "9.20.1"
 postgres = "42.2.2"
+compose-nav = "2.7.0-alpha07"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -23,6 +25,9 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+
+compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref="compose-nav" }
+
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
@@ -32,6 +37,13 @@ ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "k
 ktor-server-cn = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-server-cn-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
+
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorclient" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorclient" }
+ktor-client-wasm = { module = "io.ktor:ktor-client-wasm", version.ref = "ktorclient" }
+ktor-client-cn = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorclient" }
+ktor-client-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorclient" }
+
 
 
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
@@ -50,6 +62,9 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref="koin" }
 koin-core = { module = "io.insert-koin:koin-core"}
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
 koin-ktor-logger = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+#koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin" }
 
 kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "ktx-serialization" }
 bcrypt-lib = { module = "at.favre.lib:bcrypt", version.ref = "bcrypt" }

@@ -2,15 +2,20 @@
 
 package com.otsembo.portfolio
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.twotone.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,101 +23,62 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.otsembo.portfolio.presentation.components.AppButton
-import com.otsembo.portfolio.presentation.components.AppButtonType
-import com.otsembo.portfolio.presentation.components.AppLinearProgressBar
-import com.otsembo.portfolio.presentation.components.AppTextField
-import com.otsembo.portfolio.presentation.components.AppTextFieldType
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.otsembo.portfolio.presentation.components.BottomAppBar
-import com.otsembo.portfolio.presentation.components.SectionTitle
-import com.otsembo.portfolio.presentation.components.TopAppBar
+import com.otsembo.portfolio.presentation.components.ThemeToggle
 import com.otsembo.portfolio.presentation.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 @Preview
-fun App() {
-    AppTheme {
+fun App(
+    isAppArrowShown: Boolean = false,
+    controller: NavHostController = rememberNavController(),
+    content: @Composable (PaddingValues) -> Unit = {},
+) {
+    var isDarkMode by remember { mutableStateOf(true) }
+
+    AppTheme(
+        darkTheme = isDarkMode,
+    ) {
         Scaffold(
             modifier =
                 Modifier
                     .fillMaxSize(),
-        ) {
-            Column(
-                modifier =
-                    Modifier
-                        .padding(
-                            horizontal = 16.dp,
-                        ).padding(top = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                TopAppBar()
-
-                AppButton(
-                    modifier = Modifier.height(ButtonDefaults.MinHeight),
-                    onClick = {},
-                    content = {
-                        Text("Button")
-                    },
-                )
-
-                AppButton(
-                    modifier = Modifier.height(ButtonDefaults.MinHeight),
-                    onClick = {},
-                    content = {
-                        Text("Button")
-                    },
-                    type = AppButtonType.SECONDARY,
-                )
-
-                var password by remember { mutableStateOf("") }
-
-                AppTextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    label = {
-                        Text("Enter your name")
-                    },
-                )
-
-                AppTextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    label = {
-                        Text("Enter your password")
-                    },
-                    fieldType = AppTextFieldType.Password,
-                )
-
-                AppTextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    label = {
-                        Text("Enter your name")
-                    },
-                    fieldType = AppTextFieldType.TextArea,
-                )
-
+            topBar = {
+                Row(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(
+                                color = MaterialTheme.colorScheme.surface,
+                            ).padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalArrangement = if (isAppArrowShown.not()) Arrangement.End else Arrangement.SpaceBetween,
+                ) {
+                    if (isAppArrowShown) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.TwoTone.ArrowBack,
+                            contentDescription = null,
+                            modifier = Modifier.size(36.dp).clickable { controller.popBackStack() },
+                            tint = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
+                    ThemeToggle(
+                        isDarkMode = isDarkMode,
+                        onToggle = { isDarkMode = it },
+                    )
+                }
+            },
+            bottomBar = {
                 BottomAppBar(
-                    modifier = Modifier.padding(top = 32.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = 4.dp, bottom = 8.dp, end = 16.dp, start = 16.dp),
                 )
-
-                AppLinearProgressBar(
-                    progress = { 75 },
-                    barTitle = "Progress",
-                )
-
-                SectionTitle(
-                    modifier = Modifier.fillMaxWidth(0.25f),
-                    title = "Section Title",
-                )
-
-                SectionTitle(
-                    modifier = Modifier.fillMaxWidth(0.25f),
-                    title = "Other Title",
-                )
-            }
-        }
+            },
+            content = content,
+        )
     }
 }
