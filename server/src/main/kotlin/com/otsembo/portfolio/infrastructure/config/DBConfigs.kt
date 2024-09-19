@@ -2,13 +2,16 @@ package com.otsembo.portfolio.infrastructure.config
 
 import com.otsembo.portfolio.application.adapters.data.DBEntities
 import com.otsembo.portfolio.infrastructure.db.IDBConnection
+import com.otsembo.portfolio.infrastructure.db.dbQuery
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.Application
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.transactions.transaction
 import javax.sql.DataSource
 
 object DBConfigs {
@@ -72,8 +75,10 @@ object DBConfigs {
 
     fun Application.dbModule(engine: String = "h2") {
         val connection = getConnection(engine)
-        transaction {
-            SchemaUtils.create(*DBEntities.schemas)
+        CoroutineScope(Dispatchers.Default).launch {
+            dbQuery {
+                SchemaUtils.create(*DBEntities.schemas)
+            }
         }
         setUpMigrations(connection.dataSource)
     }

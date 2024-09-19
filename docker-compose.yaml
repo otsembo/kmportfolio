@@ -1,6 +1,9 @@
 services:
   server:
     build: .
+    env_file:
+      - path: ./.env
+        required: true
     ports:
       - "8080:8080"
     depends_on:
@@ -19,7 +22,9 @@ services:
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: portfolio_db
+      - POSTGRES_DB=portfolio_db
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     healthcheck:
