@@ -40,3 +40,12 @@ kotlin {
         }
     }
 }
+
+tasks.create("env-vars") {
+    doLast {
+        println("${Project.DEFAULT_BUILD_DIR_NAME} variables")
+        System.getenv().forEach { (key, value) ->
+            println("$key: $value")
+        }
+    }
+}

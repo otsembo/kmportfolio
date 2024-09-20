@@ -11,4 +11,6 @@ interface IUserRepository : BaseRepository {
     suspend fun findByUsername(username: String): User?
 
     suspend fun findPasswordHash(username: String): String?
+
+    suspend fun deleteUser(username: String): Boolean
 }

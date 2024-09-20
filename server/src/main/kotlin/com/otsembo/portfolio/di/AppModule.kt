@@ -1,9 +1,12 @@
 package com.otsembo.portfolio.di
 
 import com.otsembo.portfolio.application.adapters.data.repository.AuthRepository
+import com.otsembo.portfolio.application.adapters.data.repository.ProjectsRepository
 import com.otsembo.portfolio.application.adapters.data.repository.UserRepository
 import com.otsembo.portfolio.domain.services.JWTService
 import com.otsembo.portfolio.domain.services.PasswordService
+import com.otsembo.portfolio.infrastructure.repository.IAuthRepository
+import com.otsembo.portfolio.infrastructure.repository.IProjectsRepository
 import com.otsembo.portfolio.infrastructure.repository.IUserRepository
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -19,19 +22,13 @@ fun Application.diModule() {
     }
 }
 
-fun Application.appModule() =
+fun appModule() =
     module {
         single<JWTService> {
-            val issuer =
-                environment.config.propertyOrNull("jwt.issuer")?.getString()
-
-            val audience =
-                environment.config.propertyOrNull("jwt.audience")?.getString()
-
-            val secret =
-                environment.config.propertyOrNull("jwt.secret")?.getString()
-
-            JWTService(issuer!!, audience!!, secret!!)
+            val issuer = System.getenv("JWT_ISSUER") ?: "issuer"
+            val audience = System.getenv("JWT_AUDIENCE") ?: "audience"
+            val secret = System.getenv("JWT_SECRET") ?: "dummy_invalid_secret"
+            JWTService(issuer, audience, secret)
         }
 
         single<PasswordService> {
@@ -42,11 +39,15 @@ fun Application.appModule() =
             UserRepository()
         }
 
-        single<AuthRepository> {
+        single<IAuthRepository> {
             AuthRepository(
                 jwtService = get(),
                 passwordService = get(),
                 userRepository = get(),
             )
+        }
+
+        single<IProjectsRepository> {
+            ProjectsRepository()
         }
     }

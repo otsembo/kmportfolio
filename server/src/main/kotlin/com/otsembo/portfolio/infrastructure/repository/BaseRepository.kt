@@ -1,5 +1,7 @@
 package com.otsembo.portfolio.infrastructure.repository
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.LocalDateTime
 
 interface BaseRepository {
@@ -10,4 +12,6 @@ interface BaseRepository {
                     .now()
                     .toString(),
         )
+
+    fun repositoryScope(): CoroutineScope = CoroutineScope(Dispatchers.IO)
 }

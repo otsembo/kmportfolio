@@ -6,6 +6,7 @@ import com.otsembo.portfolio.domain.models.UserDTO
 import com.otsembo.portfolio.infrastructure.db.dbQuery
 import com.otsembo.portfolio.infrastructure.repository.IUserRepository
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.or
 import org.jetbrains.exposed.sql.selectAll
@@ -90,4 +91,9 @@ class UserRepository : IUserRepository {
                 it[user.password_hash]
             }
         }
+
+    override suspend fun deleteUser(username: String): Boolean =
+        dbQuery {
+            user.deleteWhere { user.username eq username } > 0
+        } ?: false
 }
