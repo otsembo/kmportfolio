@@ -3,6 +3,7 @@ package com.otsembo.portfolio.application.adapters.web.routing
 import com.otsembo.portfolio.domain.mappers.AppState
 import com.otsembo.portfolio.domain.models.ProjectDTO
 import com.otsembo.portfolio.infrastructure.repository.IProjectsRepository
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.auth.authenticate
 import io.ktor.server.request.receive
@@ -30,8 +31,8 @@ fun Application.projectsRoute() {
                     val projectDTO = call.receive<ProjectDTO>()
                     val project = projectsRepository.create(projectDTO)
                     project?.let {
-                        call.respond(AppState.Success(data = it))
-                    } ?: call.respond(AppState.Error(message = "An error occurred"))
+                        call.respond(HttpStatusCode.Created, AppState.Success(data = it))
+                    } ?: call.respond(HttpStatusCode.UnprocessableEntity, AppState.Error(message = "An error occurred"))
                 }
 
                 put("update/{id}") {
@@ -40,7 +41,7 @@ fun Application.projectsRoute() {
                     val project = projectsRepository.update(id!!, projectDTO)
                     project?.let {
                         call.respond(AppState.Success(data = it))
-                    } ?: call.respond(AppState.Error(message = "An error occurred"))
+                    } ?: call.respond(HttpStatusCode.BadRequest, AppState.Error(message = "An error occurred"))
                 }
 
                 delete("delete/{id}") {
@@ -49,7 +50,10 @@ fun Application.projectsRoute() {
                     if (project) {
                         call.respond(AppState.Success(data = "Project deleted successfully"))
                     } else {
-                        call.respond(AppState.Error(message = "An error occurred when deleting the project"))
+                        call.respond(
+                            HttpStatusCode.BadRequest,
+                            AppState.Error(message = "An error occurred when deleting the project"),
+                        )
                     }
                 }
             }

@@ -69,7 +69,7 @@ fun Application.statusModule() {
                     )
                 else ->
                     call.respond(
-                        status = HttpStatusCode.InternalServerError,
+                        status = HttpStatusCode.BadRequest,
                         AppState.Error(message = cause.message ?: "An error occurred"),
                     )
             }
